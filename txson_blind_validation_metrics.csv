@@ -1,0 +1,2 @@
+Station_ID,Train_Cutoff,Ground_Truth_Cutoff,Horizon_Days,RMSE,MAE,R2
+TXS01,2020-09-01,2021-09-01,364,0.0749,0.0623,-0.7173
