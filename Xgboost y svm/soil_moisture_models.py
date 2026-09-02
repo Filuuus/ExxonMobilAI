@@ -180,7 +180,7 @@ def run_forecast(panel: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         tr = df[df.Date < TEST_START]
         te = df[df.Date >= TEST_START]
 
-        Xtr, Xte = tr[FEATURES_FULL], te[FEATURES_FULL]
+        Xtr, Xte = tr[FEATURES_NOHIST], te[FEATURES_NOHIST]
         ytr, yte = tr.y.to_numpy(), te.y.to_numpy()
 
         preds = {
