@@ -118,12 +118,12 @@ def fetch_historical_station_cached(row, start_date="2014-09-01", end_date="2024
     cache_file = STATION_FETCH_CACHE_DIR / f"{row['ID']}_{start_date}_{end_date}.csv"
 
     if cache_file.exists():
-        return pd.read_csv(cache_file, parse_dates=['Date'])
+        return pd.read_csv(cache_file, parse_dates=['Date']), True
 
     df_st = fetch_historical_station_with_retry(row, start_date, end_date, retries=retries)
     if df_st is not None:
         df_st.to_csv(cache_file, index=False)
-    return df_st
+    return df_st, False
 
 def build_openmeteo_dataset():
     print("=" * 80)
@@ -139,12 +139,13 @@ def build_openmeteo_dataset():
     print("    -> Using Sequential fetching to respect API rate limits (Wait ~5-10 minutes).")
     
     for idx, row in df_coords.iterrows():
-        df_st = fetch_historical_station_cached(row)
+        df_st, was_cached = fetch_historical_station_cached(row)
         if df_st is not None:
             results.append(df_st)
-            
-        print(f"    -> Progress: {idx+1}/{len(df_coords)} grids acquired ({row['ID']}).")
-        time.sleep(6.0) # Wait between requests to stay well clear of burst rate limits
+
+        print(f"    -> Progress: {idx+1}/{len(df_coords)} grids acquired ({row['ID']}){' [cached]' if was_cached else ''}.")
+        if not was_cached:
+            time.sleep(6.0) # Wait between requests to stay well clear of burst rate limits
             
     df_unified = pd.concat(results, ignore_index=True)
     df_unified = df_unified.sort_values(['Station_ID', 'Date']).reset_index(drop=True)

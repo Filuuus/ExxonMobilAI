@@ -79,27 +79,29 @@ def fetch_cbfd_dataset(df_targets):
     print("    -> Using Sequential fetching to respect API rate limits.")
 
     for idx, row in df_targets.iterrows():
-        df_st = fetch_historical_station_with_retry(row, start_date=row["Start"], end_date=row["End"])
+        df_st, was_cached = fetch_historical_station_cached(row, start_date=row["Start"], end_date=row["End"])
         if df_st is not None:
             results.append(df_st)
-            print(f"    -> [{idx+1}/{len(df_targets)}] {row['ID']:6s} ({row['Start']} to {row['End']}): {len(df_st)} daily records acquired.")
+            print(f"    -> [{idx+1}/{len(df_targets)}] {row['ID']:6s} ({row['Start']} to {row['End']}): {len(df_st)} daily records acquired.{' [cached]' if was_cached else ''}")
         else:
             print(f"    -> [{idx+1}/{len(df_targets)}] {row['ID']:6s}: FAILED, will retry after cooldown.")
             failed_rows.append(row)
-        time.sleep(6.0)
+        if not was_cached:
+            time.sleep(6.0)
 
     if failed_rows:
         print(f"\n[+] Cooling down 60s before retrying {len(failed_rows)} failed station(s): {[r['ID'] for r in failed_rows]}")
         time.sleep(60)
         still_failed = []
         for row in failed_rows:
-            df_st = fetch_historical_station_with_retry(row, start_date=row["Start"], end_date=row["End"])
+            df_st, was_cached = fetch_historical_station_cached(row, start_date=row["Start"], end_date=row["End"])
             if df_st is not None:
                 results.append(df_st)
                 print(f"    -> Retry succeeded: {row['ID']:6s} ({len(df_st)} daily records acquired).")
             else:
                 still_failed.append(row['ID'])
-            time.sleep(6.0)
+            if not was_cached:
+                time.sleep(6.0)
         if still_failed:
             print(f"[!] Permanently failed after retry pass: {still_failed}")
 
@@ -124,11 +126,12 @@ def build_expanded_openmeteo_dataset(out_path="datasets/OpenMeteo_Synthetic_Grid
 
     results = []
     for idx, row in df_grid.iterrows():
-        df_st = fetch_historical_station_with_retry(row, start_date="2014-09-01", end_date="2024-09-01")
+        df_st, was_cached = fetch_historical_station_cached(row, start_date="2014-09-01", end_date="2024-09-01")
         if df_st is not None:
             results.append(df_st)
-        print(f"    -> Progress: {idx+1}/{len(df_grid)} grid coordinates acquired ({row['ID']}).")
-        time.sleep(6.0)
+        print(f"    -> Progress: {idx+1}/{len(df_grid)} grid coordinates acquired ({row['ID']}){' [cached]' if was_cached else ''}.")
+        if not was_cached:
+            time.sleep(6.0)
 
     # 2. CB/FD real station coordinates (relevant per-station timeframe)
     df_targets = build_cbfd_targets()
