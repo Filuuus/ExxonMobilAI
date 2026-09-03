@@ -1,0 +1,272 @@
+FD28
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	679.2
+Latitude	30.2022
+Longitude	-98.6543
+
+FD13
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	15.75
+Latitude	30.2318
+Longitude	-98.7084
+
+FD12
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.51
+1 Year Precipitation (mm)	527.3
+Latitude	30.2383
+Longitude	-98.7037
+
+FD02
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.51
+1 Year Precipitation (mm)	538.47
+Latitude	30.2454
+Longitude	-98.7059
+
+
+FD30
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.51
+1 Year Precipitation (mm)	567.44
+Latitude	30.2492
+Longitude	-98.6995
+
+FD21
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.25
+1 Year Precipitation (mm)	202.18
+Latitude	30.2501
+Longitude	-98.7069
+
+FD29
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	0.0
+Latitude	30.2534
+Longitude	-98.699
+
+FD17
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	6.1
+1 Month Precipitation (mm)	9.65
+1 Year Precipitation (mm)	466.6
+Latitude	30.2317
+Longitude	-98.7685
+
+FD11
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.25
+1 Year Precipitation (mm)	396.24
+Latitude	30.2381
+Longitude	-98.7701
+
+FD18
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	7.87
+1 Month Precipitation (mm)	35.81
+1 Year Precipitation (mm)	735.33
+Latitude	30.2108
+Longitude	-98.8331
+
+FD03
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	1.27
+1 Year Precipitation (mm)	509.78
+Latitude	30.2758
+Longitude	-98.7242
+
+FD23
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	1.27
+1 Year Precipitation (mm)	654.3
+Latitude	30.2754
+Longitude	-98.7268
+
+FD22
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	12.7
+1 Year Precipitation (mm)	467.36
+Latitude	30.2836
+Longitude	-98.7417
+
+FD08
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	1.27
+1 Year Precipitation (mm)	636.02
+Latitude	30.2897
+Longitude	-98.7462
+
+FD16
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.25
+1 Year Precipitation (mm)	598.68
+Latitude	30.3072
+Longitude	-98.7703
+
+CB20
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	8.89
+1 Month Precipitation (mm)	12.7
+1 Year Precipitation (mm)	696.47
+Latitude	30.4151
+Longitude	-98.8025
+
+CB31
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	8.38
+1 Month Precipitation (mm)	11.94
+1 Year Precipitation (mm)	611.12
+Latitude	30.41932
+Longitude	-98.80461
+
+
+CB10
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.25
+1 Year Precipitation (mm)	830.84
+Latitude	30.4298
+Longitude	-98.7792
+
+CB26
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	745.24
+Latitude	30.4218
+Longitude	-98.7839
+
+
+CB09
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	nan
+7 days Precipitation (mm)	nan
+1 Month Precipitation (mm)	nan
+1 Year Precipitation (mm)	nan
+Latitude	30.4283
+Longitude	-98.8065
+
+CB25
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	869.44
+Latitude	30.4175
+Longitude	-98.8542
+
+CB27
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	17.78
+1 Year Precipitation (mm)	477.51
+Latitude	30.43154
+Longitude	-98.860405
+
+CB19
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	731.02
+Latitude	30.4327
+Longitude	-98.8583
+
+CB06
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.25
+7 days Precipitation (mm)	35.31
+1 Month Precipitation (mm)	111.76
+1 Year Precipitation (mm)	734.33
+Latitude	30.4421
+Longitude	-98.8427
+
+CB33
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	nan
+7 days Precipitation (mm)	nan
+1 Month Precipitation (mm)	nan
+1 Year Precipitation (mm)	nan
+Latitude	30.4487
+Longitude	-98.848
+
+CB32
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	640.59
+Latitude	30.4613
+Longitude	-98.8451
+
+CB04
+Soil Water Content and Precipitation Graph
+Soil Temperature and Precipitation Graph
+24 Hours Precipitation (mm)	0.0
+7 days Precipitation (mm)	0.0
+1 Month Precipitation (mm)	0.0
+1 Year Precipitation (mm)	706.89
+Latitude	30.46
+Longitude	-98.9407
