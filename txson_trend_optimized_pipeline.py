@@ -132,6 +132,10 @@ def run_baseline_normalized_pipeline():
     validation_results = {}
     metrics_list = []
     
+    @tf.function(reduce_retracing=True)
+    def fast_predict(seq):
+        return model(seq, training=False)
+
     for st_id in active_test_stations:
         st_train = df_train[df_train['Station_ID'] == st_id].sort_values('Date')
         st_test = df_test[df_test['Station_ID'] == st_id].sort_values('Date')
@@ -154,8 +158,8 @@ def run_baseline_normalized_pipeline():
         # 365-day recursive rollout in standardized space
         preds_z = []
         for step in range(horizon):
-            lstm_in = curr_seq.reshape(1, look_back, 6)
-            pred_z = float(model(lstm_in, training=False).numpy()[0, 0])
+            lstm_in = tf.convert_to_tensor(curr_seq.reshape(1, look_back, 6), dtype=tf.float32)
+            pred_z = float(fast_predict(lstm_in).numpy()[0, 0])
             pred_z = float(np.clip(pred_z, -2.5, 3.5))
             preds_z.append(pred_z)
             
