@@ -99,16 +99,26 @@ def run_baseline_normalized_pipeline():
     y_train = np.array(y_train, dtype=np.float32)
     print(f"[+] Constructed {len(X_train):,} training sequences of length {look_back} (Standardized Dynamics).")
     
-    # 5. Train Shared Anomaly LSTM Architecture
+    # 5. Train Shared Anomaly LSTM Architecture with Optimal Learning Rate Schedule
     print(f"\n[+] Training Shared Hydrological Dynamic LSTM on AMD Ryzen 9 5950X...")
+    np.random.seed(42)
+    tf.random.set_seed(42)
+    
+    steps_per_epoch = len(X_train) // 64
+    lr_schedule = tf.keras.optimizers.schedules.CosineDecay(
+        initial_learning_rate=0.0015,
+        decay_steps=steps_per_epoch * 16,
+        alpha=0.1
+    )
+    
     model = Sequential([
         LSTM(64, activation='tanh', recurrent_activation='sigmoid', return_sequences=True, input_shape=(look_back, 6)),
         LSTM(32, activation='tanh', recurrent_activation='sigmoid'),
         Dense(32, activation='relu'),
         Dense(1) # Linear output for continuous standardized anomaly z
     ])
-    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), loss=tf.keras.losses.Huber(delta=1.0))
-    model.fit(X_train, y_train, epochs=12, batch_size=64, verbose=1)
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule), loss=tf.keras.losses.Huber(delta=1.0))
+    model.fit(X_train, y_train, epochs=16, batch_size=64, verbose=1)
     print("    -> Anomaly LSTM Model Training Complete.")
     
     model.save("trend_optimized_lstm_model.keras")
@@ -206,34 +216,36 @@ def run_baseline_normalized_pipeline():
     df_metrics.to_csv(metrics_csv, index=False)
     print(f"\n[+] Saved trend-optimized metrics to: '{metrics_csv}'")
     
-    # 7. Generate High-Resolution Multi-Station Comparison Dashboard
-    n_plot = min(len(validation_results), 12)
+    # 7. Generate High-Resolution Best-Performing Multi-Station Showcase Dashboard
+    sorted_by_r2 = sorted(validation_results.items(), key=lambda item: item[1]['R2'], reverse=True)
+    n_plot = min(len(sorted_by_r2), 12)
     n_cols = 3
     n_rows = (n_plot + n_cols - 1) // n_cols
     
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(18, 4 * n_rows), sharex=True)
     axes = axes.flatten() if n_plot > 1 else [axes]
     
-    plot_stations = sorted(validation_results.keys())[:n_plot]
+    plot_stations = [k for k, v in sorted_by_r2[:n_plot]]
     for idx, st_id in enumerate(plot_stations):
         ax = axes[idx]
         res = validation_results[st_id]
         ax.plot(res['Dates'], res['Actual'], label='In-Situ Ground Truth', color='#1f77b4', linewidth=1.8)
         ax.plot(res['Dates'], res['Forecast'], label='Trend-Optimized Forecast', color='#2ca02c', linestyle='--', linewidth=1.8)
         ax.axhline(res['Baseline'], color='#7f7f7f', linestyle=':', label=f'Soil Baseline ({res["Baseline"]:.2f})', alpha=0.7)
-        ax.set_title(f"Station {st_id} (R²: {res['R2']:+.2f} | Corr: {res['Corr']:.2f} | RMSE: {res['RMSE']:.4f})", fontweight='bold', fontsize=11)
+        ax.set_title(f"Rank #{idx+1}: Station {st_id} (R²: {res['R2']:+.2f} | Corr: {res['Corr']:.2f} | RMSE: {res['RMSE']:.4f})", fontweight='bold', fontsize=11)
         ax.legend(loc='upper right', frameon=True, facecolor='white', framealpha=0.9, fontsize=8)
         ax.set_ylim(0.0, 0.45)
         if idx >= (n_rows - 1) * n_cols:
             ax.set_xlabel("Date", fontsize=10)
         if idx % n_cols == 0:
             ax.set_ylabel("Soil Moisture (m³/m³)", fontsize=10)
+        ax.grid(True, linestyle=':', alpha=0.6)
             
     for j in range(len(plot_stations), len(axes)):
         fig.delaxes(axes[j])
         
     fig.suptitle(
-        f"TxSON Per-Station Trend-Optimized 1-Year Blind Forecast vs In-Situ Ground Truth\n"
+        f"TxSON Top-Performing Stations: Trend-Optimized 1-Year Blind Forecast vs In-Situ Ground Truth\n"
         f"Evaluation Period: 2020-09-01 to 2021-09-01 (Continuous 365-Day Zero-Leakage Rollout)",
         fontsize=14, fontweight='bold', y=0.99
     )
@@ -242,7 +254,35 @@ def run_baseline_normalized_pipeline():
     plot_out = "txson_trend_optimized_validation.png"
     plt.savefig(plot_out, dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"[+] Saved multi-station dashboard to: '{os.path.abspath(plot_out)}'")
+    print(f"[+] Saved top-performer dashboard to: '{os.path.abspath(plot_out)}'")
+    
+    # 8. Also generate Full 21-Station Comprehensive Validation Grid
+    n_all = len(validation_results)
+    n_all_cols = 3
+    n_all_rows = (n_all + n_all_cols - 1) // n_all_cols
+    fig_all, axes_all = plt.subplots(n_all_rows, n_all_cols, figsize=(18, 3.5 * n_all_rows), sharex=True)
+    axes_all = axes_all.flatten()
+    
+    for idx, (st_id, res) in enumerate(sorted_by_r2):
+        ax = axes_all[idx]
+        ax.plot(res['Dates'], res['Actual'], label='In-Situ Truth', color='#1f77b4', linewidth=1.5)
+        ax.plot(res['Dates'], res['Forecast'], label='Forecast', color='#2ca02c', linestyle='--', linewidth=1.5)
+        ax.axhline(res['Baseline'], color='#7f7f7f', linestyle=':', label=f'Base ({res["Baseline"]:.2f})', alpha=0.7)
+        ax.set_title(f"Station {st_id} (R²: {res['R2']:+.2f} | Corr: {res['Corr']:.2f})", fontweight='bold', fontsize=10)
+        ax.set_ylim(0.0, 0.45)
+        ax.grid(True, linestyle=':', alpha=0.5)
+        if idx % n_all_cols == 0:
+            ax.set_ylabel("SWC (m³/m³)", fontsize=9)
+            
+    for j in range(n_all, len(axes_all)):
+        fig_all.delaxes(axes_all[j])
+        
+    fig_all.suptitle("TxSON Network Complete 21-Station Blind Validation (Ranked by R²)", fontsize=14, fontweight='bold', y=0.99)
+    plt.tight_layout(rect=[0, 0.02, 1, 0.97])
+    full_plot_out = "txson_all_stations_complete_validation.png"
+    plt.savefig(full_plot_out, dpi=200, bbox_inches='tight')
+    plt.close()
+    print(f"[+] Saved full network dashboard to: '{os.path.abspath(full_plot_out)}'")
     print("=" * 80)
     return df_metrics
 
